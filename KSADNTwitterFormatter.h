@@ -15,7 +15,7 @@
 
     String: The text you want to be converted for twitter
 
-    URL: The URL of the ADN post, appended when the text is too long
+    URL: The URL of the ADN post, which is appended when the text is too long
  **/
 + (NSString *)formatTwitterStringWithString:(NSString *)string andURL:(NSURL *)url;
 

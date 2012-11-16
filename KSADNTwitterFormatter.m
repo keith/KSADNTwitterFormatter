@@ -81,7 +81,9 @@
         }
         
         // Append elipses a newline and the URL to the App.net post
-        twitterText = [twitterText stringByAppendingFormat:@"...\n%@", [url absoluteString]];
+        if ([url absoluteString].length > 0) {
+            twitterText = [twitterText stringByAppendingFormat:@"...\n%@", [url absoluteString]];
+        }
     }
     
     return twitterText;

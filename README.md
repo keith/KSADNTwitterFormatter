@@ -15,6 +15,12 @@ Passing the two parameters,
 1. The post text that you're planning on formatting
 2. The response URL of your ADN post that will be appended to your Tweet if the post is too long.
 
+EX:
+
+	NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:postText andURL:[NSURL URLWithString:[responseJSON valueForKeyPath:@"data.canonical_url"]]];
+
+*NOTE: Depending on your setup with ADN your `canonical_url` key may not have the same path.*
+
 -----------
 
 ## [CocoaPods](http://cocoapods.org/)
