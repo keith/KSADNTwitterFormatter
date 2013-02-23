@@ -16,7 +16,8 @@
 // The length of t.co links as it stands today see:
 // https://dev.twitter.com/docs/tco-link-wrapper/faq#Will_t.co-wrapped_links_always_be_the_same_length
 //
-#define TCO_LINK_LENGTH 20
+#define TCO_HTTP_LENGTH 22
+#define TCO_HTTPS_LENGTH 23
 
 @implementation KSADNTwitterFormatter
 
@@ -33,12 +34,10 @@
     // The length of the post
     NSUInteger postLength = [twitterText length];
     
-    // The length of t.co links
-    NSNumber *linkLength = [NSNumber numberWithInt:TCO_LINK_LENGTH];
-    
     // Setup NSDataDetector
     NSError *error = nil;
-    NSDataDetector *detector = [[NSDataDetector alloc] initWithTypes:NSTextCheckingTypeLink error:&error];
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink
+                                                               error:&error];
     
     // Check to see if the data detector failed
     if (error) {
@@ -53,9 +52,15 @@
         //
         if (matches.count > 0) {
             for (NSTextCheckingResult *result in matches) {
-                if (result.URL.absoluteString.length > linkLength.integerValue) {
+                if (result.URL.absoluteString.length >= TCO_HTTP_LENGTH) {
                     postLength -= result.URL.absoluteString.length;
-                    postLength += linkLength.integerValue;
+
+                    // Link differs in length if it's an HTTPS link
+                    if ([result.URL.scheme isEqualToString:@"https"]) {
+                        postLength += TCO_HTTPS_LENGTH;
+                    } else {
+                        postLength += TCO_HTTP_LENGTH;
+                    }
                 }
             }
         }
