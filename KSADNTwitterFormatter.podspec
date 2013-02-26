@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "KSADNTwitterFormatter"
-  s.version      = "0.1.1"
+  s.version      = "0.1.2"
   s.summary      = "A simple class for taking ADN posts and reformatting them to fit into Twitter's length restrictions, taking links into account."
   s.homepage     = "https://github.com/Keithbsmiley/KSADNTwitterFormatter"
   s.license      = 'MIT'
