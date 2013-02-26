@@ -19,4 +19,13 @@
  **/
 + (NSString *)formatTwitterStringWithString:(NSString *)string andURL:(NSURL *)url;
 
+
+/**
+    This is purely a convinence method for determine the length of the string
+        that would be produced with the passed string
+ 
+    String: The text that would be used for the twitter post
+ **/
++ (NSUInteger)twitterLengthOfString:(NSString *)string;
+
 @end

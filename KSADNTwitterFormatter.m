@@ -10,7 +10,7 @@
 #define TWEET_LENGTH 140
 
 // The maximum length when the text is too long for a tweet and must be reduced
-#define MAX_POST_LENGTH 115
+#define MAX_POST_LENGTH 113
 
 //
 // The length of t.co links as it stands today see:
@@ -52,16 +52,11 @@
         //
         if (matches.count > 0) {
             for (NSTextCheckingResult *result in matches) {
-                if (result.URL.absoluteString.length >= TCO_HTTP_LENGTH) {
-                    postLength -= result.URL.absoluteString.length;
+                // Subtract the link length
+                postLength -= result.URL.absoluteString.length;
 
-                    // Link differs in length if it's an HTTPS link
-                    if ([result.URL.scheme isEqualToString:@"https"]) {
-                        postLength += TCO_HTTPS_LENGTH;
-                    } else {
-                        postLength += TCO_HTTP_LENGTH;
-                    }
-                }
+                // Get and the length of the URL based on current TCO lengths
+                postLength += [self lengthOfURL:result.URL];
             }
         }
     }
@@ -81,17 +76,42 @@
                 break;
             } else {
                 // If not append the component after a space
-                twitterText = [twitterText stringByAppendingFormat:@" %@", component];
+                twitterText = [twitterText stringByAppendingFormat:@"%@ ", component];
             }
         }
         
         // Append elipses a newline and the URL to the App.net post
         if ([url absoluteString].length > 0) {
+            // Remove the string's trailing space
+            if ([twitterText hasSuffix:@" "]) {
+                twitterText = [twitterText substringToIndex:twitterText.length - 1];
+            }
+            
+            // Append the ADN url
             twitterText = [twitterText stringByAppendingFormat:@"...\n%@", [url absoluteString]];
         }
     }
     
     return twitterText;
+}
+
++ (NSUInteger)lengthOfURL:(NSURL *)url
+{
+    if (url.absoluteString.length < TCO_HTTP_LENGTH) {
+        return url.absoluteString.length;
+    }
+
+    if ([url.scheme isEqualToString:@"https"]) {
+        return TCO_HTTPS_LENGTH;
+    }
+    
+    return TCO_HTTP_LENGTH;
+}
+
++ (NSUInteger)twitterLengthOfString:(NSString *)string
+{
+    NSURL *dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
+    return [[self formatTwitterStringWithString:string andURL:dummyURL] length];
 }
 
 @end
