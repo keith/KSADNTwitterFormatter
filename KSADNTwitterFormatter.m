@@ -81,14 +81,18 @@
         }
         
         // Append elipses a newline and the URL to the App.net post
-        if ([url absoluteString].length > 0) {
+        if ([[url absoluteString] length] > 0) {
             // Remove the string's trailing space
             if ([twitterText hasSuffix:@" "]) {
                 twitterText = [twitterText substringToIndex:twitterText.length - 1];
             }
             
-            // Append the ADN url
-            twitterText = [twitterText stringByAppendingFormat:@"...\n%@", [url absoluteString]];
+            // Check to see if the string is empty (when the input is a gigantic space-less string)
+            if ([twitterText length] < 1) {
+                twitterText = [url absoluteString];
+            } else { // Append the ADN url
+                twitterText = [twitterText stringByAppendingFormat:@"...\n%@", [url absoluteString]];
+            }
         }
     }
     
