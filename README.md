@@ -27,7 +27,7 @@ EX:
 
 If you're using CocoaPods, which you should be, just add this to your podspec.
 
-	pod 'KSADNTwitterFormatter', '~> 0.1.0'
+	pod 'KSADNTwitterFormatter', '~> 0.1.2'
 
 -----------
 
