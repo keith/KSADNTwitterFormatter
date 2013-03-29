@@ -29,37 +29,10 @@
     }
 
     // Setup twitterText with the original post text
-    NSString *twitterText = post;
-    
-    // The length of the post
-    NSUInteger postLength = [twitterText length];
-    
-    // Setup NSDataDetector
-    NSError *error = nil;
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink
-                                                               error:&error];
-    
-    // Check to see if the data detector failed
-    if (error) {
-        NSLog(@"Error creating Data Detector: %@ continuing...", [error localizedDescription]);
-    } else {
-        // Check for URLs in the original post
-        NSArray *matches = [detector matchesInString:twitterText options:0 range:NSMakeRange(0, postLength)];
-        
-        //
-        // If there are URLs and they're longer than the default t.co link length reduce the length variable because the URLs will be automatically shortened by Twitter
-        // If they are shorter than the default twitter length leave them alone, they will appear as is
-        //
-        if (matches.count > 0) {
-            for (NSTextCheckingResult *result in matches) {
-                // Subtract the link length
-                postLength -= result.URL.absoluteString.length;
+    NSString *twitterText = [post copy];
 
-                // Get and the length of the URL based on current TCO lengths
-                postLength += [self lengthOfURL:result.URL];
-            }
-        }
-    }
+    // Get the post's length
+    NSUInteger postLength = [self lengthOfTextCountingLinks:twitterText];
     
     // If the post's length is greater than the Twitter character limit reduce it and append the URL to the post on App.net
     if (postLength > TWEET_LENGTH) {
@@ -115,7 +88,39 @@
 + (NSUInteger)twitterLengthOfString:(NSString *)string
 {
     NSURL *dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
-    return [[self formatTwitterStringWithString:string andURL:dummyURL] length];
+    NSString *formattedString = [self formatTwitterStringWithString:string andURL:dummyURL];
+    return [self lengthOfTextCountingLinks:formattedString];
+}
+
++ (NSUInteger)lengthOfTextCountingLinks:(NSString *)text
+{
+    NSUInteger postLength = [text length];
+
+    NSError *error = nil;
+    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink
+                                                               error:&error];
+
+    if (error) {
+        NSLog(@"Error creating Data Detector: %@ continuing...", [error localizedDescription]);
+    } else {
+        NSArray *matches = [detector matchesInString:text options:0 range:NSMakeRange(0, postLength)];
+
+        //
+        // If there are URLs and they're longer than the default t.co link length reduce the length variable because the URLs will be automatically shortened by Twitter
+        // If they are shorter than the default twitter length leave them alone, they will appear as is
+        //
+        if (matches.count > 0) {
+            for (NSTextCheckingResult *result in matches) {
+                // Subtract the link length
+                postLength -= result.URL.absoluteString.length;
+                
+                // Get and the length of the URL based on current TCO lengths
+                postLength += [self lengthOfURL:result.URL];
+            }
+        }
+    }
+    
+    return postLength;
 }
 
 @end
