@@ -11,7 +11,6 @@
 @interface KSADNTwitterFormatter_ExampleTests : SenTestCase
 
 @property (nonatomic, strong) NSString *shortPostText;
-@property (nonatomic, strong) NSString *twooshText;
 @property (nonatomic, strong) NSString *longPostText;
 @property (nonatomic, strong) NSURL *dummyURL;
 
