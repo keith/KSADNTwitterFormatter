@@ -6,19 +6,6 @@
 
 #import "KSADNTwitterFormatter.h"
 
-// The maximum length for a tweet. Probably could've hard coded
-#define TWEET_LENGTH 140
-
-// The maximum length when the text is too long for a tweet and must be reduced
-#define MAX_POST_LENGTH 113
-
-//
-// The length of t.co links as it stands today see:
-// https://dev.twitter.com/docs/tco-link-wrapper/faq#Will_t.co-wrapped_links_always_be_the_same_length
-//
-#define TCO_HTTP_LENGTH 22
-#define TCO_HTTPS_LENGTH 23
-
 @interface KSADNTwitterFormatter ()
 
 @property (nonatomic, strong) NSDataDetector *detector;
@@ -104,25 +91,14 @@
     return twitterText;
 }
 
-- (NSUInteger)lengthOfURL:(NSURL *)url
-{
-    if (url.absoluteString.length < TCO_HTTP_LENGTH) {
-        return url.absoluteString.length;
-    }
-
-    if ([url.scheme isEqualToString:@"https"]) {
-        return TCO_HTTPS_LENGTH;
-    }
-    
-    return TCO_HTTP_LENGTH;
-}
-
 - (NSUInteger)twitterLengthOfString:(NSString *)string
 {
     NSURL *dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
     NSString *formattedString = [self formatTwitterStringWithString:string andURL:dummyURL];
     return [self lengthOfTextCountingLinks:formattedString];
 }
+
+#pragma mark - Helper Methods
 
 - (NSUInteger)lengthOfTextCountingLinks:(NSString *)text
 {
@@ -144,6 +120,19 @@
     }
     
     return postLength;
+}
+
+- (NSUInteger)lengthOfURL:(NSURL *)url
+{
+    if (url.absoluteString.length < TCO_HTTP_LENGTH) {
+        return url.absoluteString.length;
+    }
+    
+    if ([[url.scheme lowercaseString] isEqualToString:@"https"]) {
+        return TCO_HTTPS_LENGTH;
+    }
+    
+    return TCO_HTTP_LENGTH;
 }
 
 @end
