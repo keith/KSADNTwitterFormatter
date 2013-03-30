@@ -52,7 +52,6 @@
 
 
 
-
 /**
      NOTE: Methods below this aren't particularly intended to be used directly and are only exposed
           for testing purposes

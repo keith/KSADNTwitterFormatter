@@ -37,6 +37,10 @@
 {
     NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:self.shortPostText andURL:self.dummyURL];
     STAssertTrue([self.shortPostText isEqualToString:twitterText], @"The text should be the same for short posts");
+    
+    NSString *testString = [NSString stringWithFormat:@"%@ %@", self.shortPostText, self.dummyURL];
+    twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:testString andURL:self.dummyHTTPSURL];
+    STAssertTrue([testString isEqualToString:twitterText], @"Short posts should show up in the same format");
 }
 
 - (void)testTooLong
@@ -84,7 +88,18 @@
 
 - (void)testLengthOfTextWithLinks
 {
-    
+    NSString *testString = [NSString stringWithFormat:@"%@ %@", self.shortPostText, self.dummyURL];
+    NSUInteger length = [[KSADNTwitterFormatter shared] lengthOfTextCountingLinks:testString];
+    NSUInteger intendedLength = testString.length - self.dummyURL.absoluteString.length + [[KSADNTwitterFormatter shared] lengthOfURL:self.dummyURL];
+    STAssertTrue(length == intendedLength, @"The length should be based on the twitter link length");
+}
+
+- (void)testTwitterLengthOfString
+{
+    NSUInteger length = [[KSADNTwitterFormatter shared] twitterLengthOfString:self.shortPostText];
+    STAssertTrue(length == self.shortPostText.length, @"Length should be the same for short posts");
+    length = [[KSADNTwitterFormatter shared] twitterLengthOfString:self.longPostText];
+    STAssertTrue(length < TWEET_LENGTH, @"Length should always be less than max length");
 }
 
 @end
