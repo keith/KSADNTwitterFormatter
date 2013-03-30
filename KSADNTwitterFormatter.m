@@ -9,6 +9,7 @@
 @interface KSADNTwitterFormatter ()
 
 @property (nonatomic, strong) NSDataDetector *detector;
+@property (nonatomic, strong) NSURL *dummyURL;
 
 @end
 
@@ -34,6 +35,7 @@
     }
 
     self.detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
+    self.dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
     
     return self;
 }
@@ -93,8 +95,7 @@
 
 - (NSUInteger)twitterLengthOfString:(NSString *)string
 {
-    NSURL *dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
-    NSString *formattedString = [self formatTwitterStringWithString:string andURL:dummyURL];
+    NSString *formattedString = [self formatTwitterStringWithString:string andURL:self.dummyURL];
     return [self lengthOfTextCountingLinks:formattedString];
 }
 
