@@ -17,7 +17,7 @@ Passing the two parameters,
 
 EX:
 
-	NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:postText andURL:[NSURL URLWithString:[responseJSON valueForKeyPath:@"data.canonical_url"]]];
+	NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:postText andURL:[NSURL URLWithString:[responseJSON valueForKeyPath:@"data.canonical_url"]]];
 
 *NOTE: Depending on your setup with ADN your `canonical_url` key may not have the same path.*
 
@@ -25,9 +25,9 @@ EX:
 
 ## [CocoaPods](http://cocoapods.org/)
 
-If you're using CocoaPods, which you should be, just add this to your podspec.
+If you're using CocoaPods, just add this to your podspec.
 
-	pod 'KSADNTwitterFormatter', '~> 0.1.2'
+	pod 'KSADNTwitterFormatter', '0.2.0'
 
 -----------
 
