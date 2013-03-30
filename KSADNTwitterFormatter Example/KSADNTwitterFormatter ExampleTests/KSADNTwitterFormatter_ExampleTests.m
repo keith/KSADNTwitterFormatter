@@ -18,7 +18,7 @@
     self.shortPostText = @"This is a short post";
     self.longPostText = @"This is a long string that is much to long for a Twitter post but isn't too long for an ADN post. Luckily this library will truncate it and add the URL passed (typically the ADN URL) to the end.";
     self.dummyURL = [NSURL URLWithString:@"http://someurltoyourpost.com"];
-    self.dummyHTTPSURL = [NSURL URLWithString:@"https//somedummyhttpsurl.com"];
+    self.dummyHTTPSURL = [NSURL URLWithString:@"https://somedummyhttpsurl.com"];
 }
 
 - (void)tearDown
@@ -30,6 +30,8 @@
 
     [super tearDown];
 }
+
+#pragma mark - Text tests
 
 - (void)testNotTooLong
 {
@@ -58,7 +60,29 @@
     STAssertTrue([twitterText isEqualToString:self.dummyURL.absoluteString], @"Too long single words should just print the URL");
 }
 
+#pragma mark - Length tests
+
 - (void)testURLLength
+{
+    NSUInteger length = [[KSADNTwitterFormatter shared] lengthOfURL:self.dummyURL];
+    STAssertTrue(length == TCO_HTTP_LENGTH, @"The length of the URL should be the current TCO length");
+    length = [[KSADNTwitterFormatter shared] lengthOfURL:self.dummyHTTPSURL];
+    STAssertTrue(length == TCO_HTTPS_LENGTH, @"The length of the URL should be the current HTTPS TCO length");
+    
+    NSURL *shortURL = [NSURL URLWithString:@"abc.com"];
+    length = [[KSADNTwitterFormatter shared] lengthOfURL:shortURL];
+    STAssertTrue(length == shortURL.absoluteString.length, @"Short URLs lengths should be their own length");
+}
+
+- (void)testURLLenghtUppercase
+{
+    NSUInteger length = [[KSADNTwitterFormatter shared] lengthOfURL:[NSURL URLWithString:self.dummyURL.absoluteString.uppercaseString]];
+    STAssertTrue(length == TCO_HTTP_LENGTH, @"The length of the URL should be the current TCO length");
+    length = [[KSADNTwitterFormatter shared] lengthOfURL:[NSURL URLWithString:self.dummyHTTPSURL.absoluteString.uppercaseString]];
+    STAssertTrue(length == TCO_HTTPS_LENGTH, @"The length of the URL should be the current HTTPS TCO length");
+}
+
+- (void)testLengthOfTextWithLinks
 {
     
 }
