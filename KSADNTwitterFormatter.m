@@ -6,22 +6,43 @@
 
 #import "KSADNTwitterFormatter.h"
 
-// The maximum length for a tweet. Probably could've hard coded
-#define TWEET_LENGTH 140
+@interface KSADNTwitterFormatter ()
 
-// The maximum length when the text is too long for a tweet and must be reduced
-#define MAX_POST_LENGTH 113
+@property (nonatomic, strong) NSDataDetector *detector;
+@property (nonatomic, strong) NSURL *dummyURL;
 
-//
-// The length of t.co links as it stands today see:
-// https://dev.twitter.com/docs/tco-link-wrapper/faq#Will_t.co-wrapped_links_always_be_the_same_length
-//
-#define TCO_HTTP_LENGTH 22
-#define TCO_HTTPS_LENGTH 23
+@end
+
 
 @implementation KSADNTwitterFormatter
 
-+ (NSString *)formatTwitterStringWithString:(NSString *)post andURL:(NSURL *)url
++ (KSADNTwitterFormatter *)shared
+{
+    static KSADNTwitterFormatter *shared = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        shared = [[KSADNTwitterFormatter alloc] init];
+    });
+    
+    return shared;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (!self) {
+        return nil;
+    }
+
+    self.detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink error:nil];
+    self.dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
+    
+    return self;
+}
+
+#pragma mark
+
+- (NSString *)formatTwitterStringWithString:(NSString *)post andURL:(NSURL *)url
 {
     // If the post isn't too long, return it immediately
     if (post.length <= TWEET_LENGTH) {
@@ -72,55 +93,47 @@
     return twitterText;
 }
 
-+ (NSUInteger)lengthOfURL:(NSURL *)url
+- (NSUInteger)twitterLengthOfString:(NSString *)string
 {
-    if (url.absoluteString.length < TCO_HTTP_LENGTH) {
-        return url.absoluteString.length;
-    }
-
-    if ([url.scheme isEqualToString:@"https"]) {
-        return TCO_HTTPS_LENGTH;
-    }
-    
-    return TCO_HTTP_LENGTH;
-}
-
-+ (NSUInteger)twitterLengthOfString:(NSString *)string
-{
-    NSURL *dummyURL = [NSURL URLWithString:@"https://thelongestURLpossibletobesafe.com"];
-    NSString *formattedString = [self formatTwitterStringWithString:string andURL:dummyURL];
+    NSString *formattedString = [self formatTwitterStringWithString:string andURL:self.dummyURL];
     return [self lengthOfTextCountingLinks:formattedString];
 }
 
-+ (NSUInteger)lengthOfTextCountingLinks:(NSString *)text
+#pragma mark - Helper Methods
+
+- (NSUInteger)lengthOfTextCountingLinks:(NSString *)text
 {
     NSUInteger postLength = [text length];
+    NSArray *matches = [self.detector matchesInString:text options:0 range:NSMakeRange(0, postLength)];
 
-    NSError *error = nil;
-    NSDataDetector *detector = [NSDataDetector dataDetectorWithTypes:(NSTextCheckingTypes)NSTextCheckingTypeLink
-                                                               error:&error];
-
-    if (error) {
-        NSLog(@"Error creating Data Detector: %@ continuing...", [error localizedDescription]);
-    } else {
-        NSArray *matches = [detector matchesInString:text options:0 range:NSMakeRange(0, postLength)];
-
-        //
-        // If there are URLs and they're longer than the default t.co link length reduce the length variable because the URLs will be automatically shortened by Twitter
-        // If they are shorter than the default twitter length leave them alone, they will appear as is
-        //
-        if (matches.count > 0) {
-            for (NSTextCheckingResult *result in matches) {
-                // Subtract the link length
-                postLength -= result.URL.absoluteString.length;
-                
-                // Get and the length of the URL based on current TCO lengths
-                postLength += [self lengthOfURL:result.URL];
-            }
+    //
+    // If there are URLs and they're longer than the default t.co link length reduce the length variable because the URLs will be automatically shortened by Twitter
+    // If they are shorter than the default twitter length leave them alone, they will appear as is
+    //
+    if (matches.count > 0) {
+        for (NSTextCheckingResult *result in matches) {
+            // Subtract the link length
+            postLength -= result.URL.absoluteString.length;
+            
+            // Get and the length of the URL based on current TCO lengths
+            postLength += [self lengthOfURL:result.URL];
         }
     }
     
     return postLength;
+}
+
+- (NSUInteger)lengthOfURL:(NSURL *)url
+{
+    if (url.absoluteString.length < TCO_HTTP_LENGTH) {
+        return url.absoluteString.length;
+    }
+    
+    if ([[url.scheme lowercaseString] isEqualToString:@"https"]) {
+        return TCO_HTTPS_LENGTH;
+    }
+    
+    return TCO_HTTP_LENGTH;
 }
 
 @end
