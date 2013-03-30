@@ -7,6 +7,7 @@
 //
 
 #import "KSADNTwitterFormatter_ExampleTests.h"
+#import "KSADNTwitterFormatter.h"
 
 @implementation KSADNTwitterFormatter_ExampleTests
 
@@ -14,19 +15,31 @@
 {
     [super setUp];
     
-    // Set-up code here.
+    self.shortPostText = @"This is a short post";
+    self.longPostText = @"This is a long string that is much to long for a Twitter post but isn't too long for an ADN post. Luckily this library will truncate it and add the URL passed (typically the ADN URL) to the end.";
+    self.dummyURL = [NSURL URLWithString:@"http://someurltoyourpost.com"];
 }
 
 - (void)tearDown
 {
-    // Tear-down code here.
-    
+    self.shortPostText = nil;
+    self.longPostText = nil;
+    self.dummyURL = nil;
+
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testNotTooLong
 {
-    STFail(@"Unit tests are not implemented yet in KSADNTwitterFormatter ExampleTests");
+    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:self.shortPostText andURL:self.dummyURL];
+    STAssertTrue([self.shortPostText isEqualToString:twitterText], @"The text should be the same for short posts");
+}
+
+- (void)testTooLong
+{
+    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:self.longPostText andURL:self.dummyURL];
+    STAssertTrue([twitterText rangeOfString:@"...\n"].location != NSNotFound, @"The long string should contain dots and a newline");
+    STAssertTrue([twitterText rangeOfString:self.dummyURL.absoluteString].location != NSNotFound, @"The long string should contain the passed URL");
 }
 
 @end
