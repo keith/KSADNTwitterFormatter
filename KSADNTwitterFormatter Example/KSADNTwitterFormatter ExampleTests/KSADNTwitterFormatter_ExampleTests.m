@@ -31,13 +31,13 @@
 
 - (void)testNotTooLong
 {
-    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:self.shortPostText andURL:self.dummyURL];
+    NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:self.shortPostText andURL:self.dummyURL];
     STAssertTrue([self.shortPostText isEqualToString:twitterText], @"The text should be the same for short posts");
 }
 
 - (void)testTooLong
 {
-    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:self.longPostText andURL:self.dummyURL];
+    NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:self.longPostText andURL:self.dummyURL];
     STAssertTrue([twitterText rangeOfString:@"...\n"].location != NSNotFound, @"The long string should contain dots and a newline");
     STAssertTrue([twitterText rangeOfString:self.dummyURL.absoluteString].location != NSNotFound, @"The long string should contain the passed URL");
 }
@@ -45,15 +45,20 @@
 - (void)testTwoosh
 {
     NSString *twooshText = @"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:twooshText andURL:self.dummyURL];
+    NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:twooshText andURL:self.dummyURL];
     STAssertTrue([twooshText isEqualToString:twitterText], @"The text should be the same for 140 character posts");
 }
 
 - (void)testLongSingleWord
 {
     NSString *longWord = @"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-    NSString *twitterText = [KSADNTwitterFormatter formatTwitterStringWithString:longWord andURL:self.dummyURL];
+    NSString *twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:longWord andURL:self.dummyURL];
     STAssertTrue([twitterText isEqualToString:self.dummyURL.absoluteString], @"Too long single words should just print the URL");
+}
+
+- (void)testURLLength
+{
+    
 }
 
 @end
