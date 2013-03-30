@@ -18,6 +18,7 @@
     self.shortPostText = @"This is a short post";
     self.longPostText = @"This is a long string that is much to long for a Twitter post but isn't too long for an ADN post. Luckily this library will truncate it and add the URL passed (typically the ADN URL) to the end.";
     self.dummyURL = [NSURL URLWithString:@"http://someurltoyourpost.com"];
+    self.dummyHTTPSURL = [NSURL URLWithString:@"https//somedummyhttpsurl.com"];
 }
 
 - (void)tearDown
@@ -25,6 +26,7 @@
     self.shortPostText = nil;
     self.longPostText = nil;
     self.dummyURL = nil;
+    self.dummyHTTPSURL = nil;
 
     [super tearDown];
 }
