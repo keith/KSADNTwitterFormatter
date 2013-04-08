@@ -17,8 +17,8 @@
 		C2891C871713403900271AA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2891C671713403900271AA7 /* Cocoa.framework */; };
 		C2891C8F1713403900271AA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C2891C8D1713403900271AA7 /* InfoPlist.strings */; };
 		C2891C921713403900271AA7 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C2891C911713403900271AA7 /* ExampleTests.m */; };
-		C2891C9D1713404400271AA7 /* KSADNTwitterFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2891C9C1713404400271AA7 /* KSADNTwitterFormatter.m */; };
-		C2891C9E1713404400271AA7 /* KSADNTwitterFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2891C9C1713404400271AA7 /* KSADNTwitterFormatter.m */; };
+		C2891CA1171341FA00271AA7 /* KSADNTwitterFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2891CA0171341FA00271AA7 /* KSADNTwitterFormatter.m */; };
+		C2891CA2171341FA00271AA7 /* KSADNTwitterFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C2891CA0171341FA00271AA7 /* KSADNTwitterFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,8 +51,8 @@
 		C2891C8E1713403900271AA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C2891C901713403900271AA7 /* ExampleTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExampleTests.h; sourceTree = "<group>"; };
 		C2891C911713403900271AA7 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
-		C2891C9B1713404400271AA7 /* KSADNTwitterFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSADNTwitterFormatter.h; path = ../../../KSADNTwitterFormatter.h; sourceTree = "<group>"; };
-		C2891C9C1713404400271AA7 /* KSADNTwitterFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSADNTwitterFormatter.m; path = ../../../KSADNTwitterFormatter.m; sourceTree = "<group>"; };
+		C2891C9F171341FA00271AA7 /* KSADNTwitterFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KSADNTwitterFormatter.h; path = ../../KSADNTwitterFormatter.h; sourceTree = "<group>"; };
+		C2891CA0171341FA00271AA7 /* KSADNTwitterFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KSADNTwitterFormatter.m; path = ../../KSADNTwitterFormatter.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,8 +120,8 @@
 			children = (
 				C2891C791713403900271AA7 /* KBSAppDelegate.h */,
 				C2891C7A1713403900271AA7 /* KBSAppDelegate.m */,
-				C2891C9B1713404400271AA7 /* KSADNTwitterFormatter.h */,
-				C2891C9C1713404400271AA7 /* KSADNTwitterFormatter.m */,
+				C2891C9F171341FA00271AA7 /* KSADNTwitterFormatter.h */,
+				C2891CA0171341FA00271AA7 /* KSADNTwitterFormatter.m */,
 				C2891C7C1713403900271AA7 /* MainMenu.xib */,
 				C2891C6E1713403900271AA7 /* Supporting Files */,
 			);
@@ -270,7 +270,7 @@
 			files = (
 				C2891C741713403900271AA7 /* main.m in Sources */,
 				C2891C7B1713403900271AA7 /* KBSAppDelegate.m in Sources */,
-				C2891C9D1713404400271AA7 /* KSADNTwitterFormatter.m in Sources */,
+				C2891CA1171341FA00271AA7 /* KSADNTwitterFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,7 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2891C921713403900271AA7 /* ExampleTests.m in Sources */,
-				C2891C9E1713404400271AA7 /* KSADNTwitterFormatter.m in Sources */,
+				C2891CA2171341FA00271AA7 /* KSADNTwitterFormatter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +461,7 @@
 				C2891C971713403900271AA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C2891C981713403900271AA7 /* Build configuration list for PBXNativeTarget "ExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +470,7 @@
 				C2891C9A1713403900271AA7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
