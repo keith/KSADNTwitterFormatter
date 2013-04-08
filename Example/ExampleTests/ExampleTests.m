@@ -41,7 +41,6 @@
     NSString *testString = [NSString stringWithFormat:@"%@ %@", self.shortPostText, self.dummyURL];
     twitterText = [[KSADNTwitterFormatter shared] formatTwitterStringWithString:testString andURL:self.dummyHTTPSURL];
     STAssertTrue([testString isEqualToString:twitterText], @"Short posts should show up in the same format");
-    STFail(@"This test should fail for science");
 }
 
 - (void)testTooLong
