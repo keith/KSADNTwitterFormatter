@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C2B5DB401707565A00567673 /* KSADNTwitterFormatter Example */ = {
+		C2B5DB401707565A00567673 /* KSADNTwitterFormatter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2B5DB721707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter Example" */;
+			buildConfigurationList = C2B5DB721707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter" */;
 			buildPhases = (
 				C2B5DB3D1707565A00567673 /* Sources */,
 				C2B5DB3E1707565A00567673 /* Frameworks */,
@@ -174,14 +174,14 @@
 			);
 			dependencies = (
 			);
-			name = "KSADNTwitterFormatter Example";
+			name = KSADNTwitterFormatter;
 			productName = "KSADNTwitterFormatter Example";
 			productReference = C2B5DB411707565A00567673 /* KSADNTwitterFormatter Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C2B5DB601707565A00567673 /* KSADNTwitterFormatter ExampleTests */ = {
+		C2B5DB601707565A00567673 /* KSADNTwitterFormatterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C2B5DB751707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter ExampleTests" */;
+			buildConfigurationList = C2B5DB751707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatterTests" */;
 			buildPhases = (
 				C2B5DB5C1707565A00567673 /* Sources */,
 				C2B5DB5D1707565A00567673 /* Frameworks */,
@@ -193,7 +193,7 @@
 			dependencies = (
 				C2B5DB661707565A00567673 /* PBXTargetDependency */,
 			);
-			name = "KSADNTwitterFormatter ExampleTests";
+			name = KSADNTwitterFormatterTests;
 			productName = "KSADNTwitterFormatter ExampleTests";
 			productReference = C2B5DB611707565A00567673 /* KSADNTwitterFormatter ExampleTests.octest */;
 			productType = "com.apple.product-type.bundle";
@@ -220,8 +220,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C2B5DB401707565A00567673 /* KSADNTwitterFormatter Example */,
-				C2B5DB601707565A00567673 /* KSADNTwitterFormatter ExampleTests */,
+				C2B5DB401707565A00567673 /* KSADNTwitterFormatter */,
+				C2B5DB601707565A00567673 /* KSADNTwitterFormatterTests */,
 			);
 		};
 /* End PBXProject section */
@@ -288,7 +288,7 @@
 /* Begin PBXTargetDependency section */
 		C2B5DB661707565A00567673 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C2B5DB401707565A00567673 /* KSADNTwitterFormatter Example */;
+			target = C2B5DB401707565A00567673 /* KSADNTwitterFormatter */;
 			targetProxy = C2B5DB651707565A00567673 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -454,21 +454,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C2B5DB721707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter Example" */ = {
+		C2B5DB721707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2B5DB731707565A00567673 /* Debug */,
 				C2B5DB741707565A00567673 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
-		C2B5DB751707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatter ExampleTests" */ = {
+		C2B5DB751707565A00567673 /* Build configuration list for PBXNativeTarget "KSADNTwitterFormatterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C2B5DB761707565A00567673 /* Debug */,
 				C2B5DB771707565A00567673 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
