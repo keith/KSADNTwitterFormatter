@@ -1,3 +1,2 @@
 language: objective-c
-before_script: 'cd KSADNTwitterFormatter\ Example'
-script: 'xcodebuild'
+before_script: 'cd Example'
