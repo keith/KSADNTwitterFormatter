@@ -1,8 +1,8 @@
 //
 //  KBSAppDelegate.h
-//  KSADNTwitterFormatter Example
+//  Example
 //
-//  Created by Keith Smiley on 3/30/13.
+//  Created by Keith Smiley on 4/8/13.
 //  Copyright (c) 2013 Keith Smiley. All rights reserved.
 //
 

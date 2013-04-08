@@ -1,15 +1,15 @@
 //
-//  KSADNTwitterFormatter_ExampleTests.m
-//  KSADNTwitterFormatter ExampleTests
+//  ExampleTests.m
+//  ExampleTests
 //
-//  Created by Keith Smiley on 3/30/13.
+//  Created by Keith Smiley on 4/8/13.
 //  Copyright (c) 2013 Keith Smiley. All rights reserved.
 //
 
-#import "KSADNTwitterFormatter_ExampleTests.h"
+#import "ExampleTests.h"
 #import "KSADNTwitterFormatter.h"
 
-@implementation KSADNTwitterFormatter_ExampleTests
+@implementation ExampleTests
 
 - (void)setUp
 {
@@ -27,7 +27,7 @@
     self.longPostText = nil;
     self.dummyURL = nil;
     self.dummyHTTPSURL = nil;
-
+    
     [super tearDown];
 }
 
