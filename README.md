@@ -2,6 +2,8 @@
 
 A simple class for taking [ADN](http://alpha.app.net/) posts and reformatting them to fit into Twitter's length restrictions, taking links into account.
 
+[![Build Status](https://travis-ci.org/Keithbsmiley/KSADNTwitterFormatter.png?branch=master)](https://travis-ci.org/Keithbsmiley/KSADNTwitterFormatter)
+
 -------------
 
 ## How to
